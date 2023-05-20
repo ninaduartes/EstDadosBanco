@@ -1,8 +1,8 @@
-from PessoaFisica.clienteFisico import *
+from PessoaJuridica.clienteJuridico import *
 from transacoes import *
 
 
-class ContaFisica(ClienteFisico):
+class ContaJuridica(ClienteJuridico):
     contador_contas = 0  # contador de contas cadastradas
 
     def __init__(self):
@@ -12,23 +12,23 @@ class ContaFisica(ClienteFisico):
         self.saldo = None
         self.extrato = []
 
-    def cadastrar_informacoes(self, cliente, tipo_conta, saldo):
-        if isinstance(cliente, ClienteFisico):
-            super().cadastrar_informacoes(cliente.agencia, cliente.numBanco, cliente.gerente, cliente.cpf, cliente.nome, cliente.telefone, cliente.endereco, cliente.cep)
-            ContaFisica.contador_contas += 1
-            self.numConta = ContaFisica.contador_contas
+    def cadastrar_informacoesPJ(self, clientePJ, tipo_conta, saldo):
+        if isinstance(clientePJ, ClienteJuridico):
+            super().cadastrar_informacoesPJ(clientePJ.agencia, clientePJ.numBanco, clientePJ.gerente, clientePJ.cnpj, clientePJ.nome, clientePJ.telefone, clientePJ.endereco, clientePJ.cep)
+            ContaJuridica.contador_contas += 1
+            self.numConta = ContaJuridica.contador_contas
             self.tipoConta = tipo_conta
             self.saldo = saldo
         else:
             print("Erro: É necessário cadastrar um ClienteFisico antes de criar uma ContaFisica.")
 
-    def exibir_informacoes(self):
-        super().exibir_informacoes()
+    def exibir_informacoesPJ(self):
+        super().exibir_informacoesPJ()
         print("Número da Conta:", self.numConta)
         print("Tipo de Conta:", self.tipoConta)
         print("Saldo:", self.saldo)
     
-    def depositar(self, valor):
+    def depositarPJ(self, valor):
         if self.tipoConta == "corrente" or self.tipoConta == "especial":
             self.saldo += valor
             transacao = Transacao("Depósito", valor)
@@ -38,7 +38,7 @@ class ContaFisica(ClienteFisico):
         else:
             print("Ocorreu um erro, tente novamente")
 
-    def sacar(self, valor):
+    def sacarPJ(self, valor):
         if self.tipoConta == "corrente":
             if valor < self.saldo:
                 self.saldo -= valor
@@ -61,7 +61,7 @@ class ContaFisica(ClienteFisico):
             else:
                 print("Erro: Não é possível realizar saque em conta especial com saldo igual a zero.")
  
-    def exibir_extrato(self):
+    def exibir_extratoPJ(self):
         print("Extrato:")
         print("\n-----------")
         print("Número da conta: ", self.numConta)
@@ -76,5 +76,4 @@ class ContaFisica(ClienteFisico):
             print("Valor: ", transacao.valor)
             print("-----------")
         print("Saldo atual: R$", self.saldo)
-
     

@@ -1,9 +1,11 @@
-from PessoaFisica.cadastro import *
 from banco import *
+from PessoaFisica.cadastroCliente import *
 from PessoaFisica.contaFisica import *
 from transacoes import *
-
+from PessoaJuridica.contaJuridica import *
+from PessoaJuridica.cadastroJuridica import *
 # --------------------------------------
+
 # Formulário de cadastro para Banco
 def cadastrar_banco():
     print("----- Bem vindo ao sistema bancário criado pela Marina e pela Gabriela -----\n")
@@ -23,6 +25,7 @@ banco_cadastrado = cadastrar_banco()
 print("\nInformações do Banco:")
 banco_cadastrado.exibir_informacoes()
 clientes = []
+clientesPJ = []
 
 ##Menu
 def menu_inicial():
@@ -30,7 +33,7 @@ def menu_inicial():
     print("[ Escolha em qual tipo conta quer realizar operações ]")
     print("1. Pessoa Física")
     print("2. Pessoa Jurídica")
-    print("2. Sair")
+    print("3. Sair")
 
 #Menu Fisica
 def menu_principal():
@@ -63,6 +66,7 @@ while True:
     menu_inicial()
     opcao_inicial = input("Escolha uma opção: ")
 
+    ##Fisica
     if opcao_inicial == "1":
         while True:
             print("\n")
@@ -155,8 +159,98 @@ while True:
             else:
                 print("Opção inválida. Tente novamente.")
     
+    ##Juridica
     elif opcao_inicial == "2":
-        print("Opção 2 ainda vazia")
+        while True:
+            print("\n")
+            menu_juridica()
+            opcao = input("Escolha uma opção: ")
+
+            if opcao == "1":
+                cnpj_clientePJ = input("Digite CNPJ para verificar se a empresa já possui uma conta: ")
+                clientePJ_existente = False
+                for clientePJ in clientesPJ:
+                    if clientePJ.cnpj == cnpj_clientePJ:
+                        clientePJ_existente = True
+                        break
+
+                if clientePJ_existente:
+                    print("Cliente já cadastrado.")
+                else:
+                    clientePJ_cadastrado = cadastrar_cliente_juridico(banco_cadastrado)
+                    clientePJ_cadastrado.cnpj = cnpj_clientePJ
+                    clientesPJ.append(clientePJ_cadastrado)
+                    print("\nInformações do Cliente Jurídico:")
+                    clientePJ_cadastrado.exibir_informacoesPJ()
+
+            elif opcao == "2":
+                if len(clientesPJ) > 0:
+                    cnpj_clientePJ = input("\nDigite o CNPJ do cliente: ")
+                    clientePJ_encontrado = None
+                    for clientePJ in clientesPJ:
+                        if clientePJ.cnpj == cnpj_clientePJ:
+                            clientePJ_encontrado = clientePJ
+                            break
+
+                    if clientePJ_encontrado is not None:
+                        contaPJ_cadastrada = cadastrar_conta_juridica(clientePJ_encontrado)
+                        clientePJ_encontrado.conta_juridica = contaPJ_cadastrada
+                        print("\nInformações da Conta Física:")
+                        contaPJ_cadastrada.exibir_informacoesPJ()
+                    else:
+                        print("Erro: CNPJ do cliente não encontrado.")
+                else:
+                    print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
+
+            elif opcao == "3":
+                if len(clientesPJ) > 0:
+                    cnpj_clientePJ = input("\nDigite o CNPJ do cliente: ")
+                    clientePJ_encontrado = None
+                    for clientePJ in clientesPJ:
+                        if clientePJ.cnpj == cnpj_clientePJ:
+                            clientePJ_encontrado = clientePJ
+                            break
+
+                    if clientePJ_encontrado is not None:
+                        realizar_deposito_juridica(clientePJ_encontrado)
+                    else:
+                        print("Erro: CNPJ do cliente não encontrado.")
+                else:
+                    print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
+
+            elif opcao == "4":
+                if len(clientesPJ) > 0:
+                    cnpj_clientePJ = input("\nDigite o CNPJ do cliente: ")
+                    clientePJ_encontrado = None
+                    for clientePJ in clientesPJ:
+                        if clientePJ.cnpj == cnpj_clientePJ:
+                            clientePJ_encontrado = clientePJ
+                            break
+
+                    if clientePJ_encontrado is not None:
+                        realizar_saque_juridica(clientePJ_encontrado)
+                    else:
+                        print("Erro: CNPJ do cliente não encontrado.")
+                else:
+                    print("Erro: É necessário cadastrar um Cliente Jurídico primeiro.")
+
+            elif opcao == "5":
+                alterar_cadastro_cliente_juridico(clientesPJ)
+
+            elif opcao == "6":
+                print("\n[ Consulta de cliente por CNPJ ]")
+                cnpj_consulta = input("\nDigite o CNPJ do cliente a ser consultado: ")
+                consultar_cliente_por_cnpj(clientesPJ, cnpj_consulta)
+
+            elif opcao == "7":
+                exibir_extrato_juridica(clientesPJ)
+
+
+            elif opcao == "8":
+                break
+
+            else:
+                print("Opção inválida. Tente novamente.")
     
     elif opcao_inicial =="3":
         print("Você saiu do sistema!")

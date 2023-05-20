@@ -5,20 +5,23 @@ from transacoes import *
 
 
 
-
+## Cadastro CLIENTES ##
 # Formulário de cadastro para ClienteFisico
 def cadastrar_cliente_fisico(banco):
     print("\n[ Dados do cliente ]")
     cpf = input("\nDigite novamente o CPF: ")
     nome = input("Nome completo: ")
+    telefone = input("Telefone: ")
+    endereco = input("Endereço completo (Rua Exemplo, nº12): ")
+    cep = input("CEP: ")
 
     cliente = ClienteFisico()
-    cliente.cadastrar_informacoes(banco.agencia, banco.numBanco, banco.gerente, cpf, nome)
+    cliente.cadastrar_informacoes(banco.agencia, banco.numBanco, banco.gerente, cpf, nome, telefone, endereco, cep)
 
     return cliente
 
 
-
+## Cadastro de CONTAS ##
 # Formulário de cadastro para ContaFisica
 def cadastrar_conta_fisica(cliente):
     print("\n[ Digite os dados para abertura de conta ]")
@@ -67,6 +70,9 @@ def alterar_cadastro_cliente(clientes):
 
     if cliente_encontrado is not None:
         novo_nome = input("Digite o novo NOME do cliente (deixe em branco para manter o valor atual): ")
+        novo_telefone = input("Digite o novo TELEFONE do cliente (deixe em branco para manter o valor atual): ")
+        novo_endereco = input("Digite o novo ENDEREÇO do cliente (deixe em branco para manter o valor atual): ")
+        novo_cep = input("Digite o novo CEP do cliente (deixe em branco para manter o valor atual): ")
         novo_agencia = input("Digite a nova AGÊNCIA do cliente (deixe em branco para manter o valor atual): ")
         novo_numBanco = input("Digite o novo BANCO do cliente (deixe em branco para manter o valor atual): ")
         novo_gerente = input("Digite o novo GERENTE do cliente (deixe em branco para manter o valor atual): ")
@@ -74,7 +80,15 @@ def alterar_cadastro_cliente(clientes):
 
         if novo_nome:
             cliente_encontrado.nome = novo_nome
-
+        if novo_telefone:
+            cliente_encontrado.telefone = novo_telefone
+        
+        if novo_endereco:
+            cliente_encontrado.endereco = novo_endereco
+        
+        if novo_cep:
+            cliente_encontrado.cep = novo_cep
+        
         if novo_agencia:
             cliente_encontrado.agencia = novo_agencia
         
@@ -87,8 +101,8 @@ def alterar_cadastro_cliente(clientes):
         if novo_tipo_conta:
             cliente_encontrado.conta_fisica.tipoConta = novo_tipo_conta
 
-        print("Cadastro do cliente atualizado com sucesso.")
-        print("Novas informações do cliente:")
+        print("[ Cadastro do cliente atualizado com sucesso.]\n")
+        print("--> Novas informações do cliente: ")
         cliente_encontrado.exibir_informacoes()
     else:
         print("Erro: CPF do cliente não encontrado.")
