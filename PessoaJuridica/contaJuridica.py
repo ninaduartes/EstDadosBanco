@@ -1,6 +1,6 @@
 from PessoaJuridica.clienteJuridico import *
 from transacoes import *
-
+import sys
 
 class ContaJuridica(ClienteJuridico):
     contador_contas = 0  # contador de contas cadastradas
@@ -21,6 +21,10 @@ class ContaJuridica(ClienteJuridico):
             self.saldo = saldo
         else:
             print("Erro: É necessário cadastrar um ClienteFisico antes de criar uma ContaFisica.")
+        
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
+
 
     def exibir_informacoesPJ(self):
         super().exibir_informacoesPJ()
@@ -37,6 +41,10 @@ class ContaJuridica(ClienteJuridico):
             print("Novo saldo:", self.saldo)
         else:
             print("Ocorreu um erro, tente novamente")
+
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
+
 
     def sacarPJ(self, valor):
         if self.tipoConta == "corrente":
@@ -60,6 +68,10 @@ class ContaJuridica(ClienteJuridico):
                     print("Saldo insuficiente.")
             else:
                 print("Erro: Não é possível realizar saque em conta especial com saldo igual a zero.")
+            
+            print("\nAperte ENTER para voltar ao menu")
+            sys.stdin.readline()
+
  
     def exibir_extratoPJ(self):
         print("Extrato:")
@@ -76,4 +88,8 @@ class ContaJuridica(ClienteJuridico):
             print("Valor: ", transacao.valor)
             print("-----------")
         print("Saldo atual: R$", self.saldo)
+        
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
+
     

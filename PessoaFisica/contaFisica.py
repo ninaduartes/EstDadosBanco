@@ -1,5 +1,6 @@
 from PessoaFisica.clienteFisico import *
 from transacoes import *
+import sys
 
 
 class ContaFisica(ClienteFisico):
@@ -12,21 +13,27 @@ class ContaFisica(ClienteFisico):
         self.saldo = None
         self.extrato = []
 
-    def cadastrar_informacoes(self, cliente, tipo_conta, saldo):
+    def cadastrar_informacoesPF(self, cliente, tipo_conta, saldo):
         if isinstance(cliente, ClienteFisico):
-            super().cadastrar_informacoes(cliente.agencia, cliente.numBanco, cliente.gerente, cliente.cpf, cliente.nome, cliente.telefone, cliente.endereco, cliente.cep)
+            super().cadastrar_informacoesPF(cliente.agencia, cliente.numBanco, cliente.gerente, cliente.cpf, cliente.nome, cliente.telefone, cliente.endereco, cliente.cep)
             ContaFisica.contador_contas += 1
             self.numConta = ContaFisica.contador_contas
             self.tipoConta = tipo_conta
             self.saldo = saldo
         else:
             print("Erro: É necessário cadastrar um ClienteFisico antes de criar uma ContaFisica.")
+        
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
 
-    def exibir_informacoes(self):
-        super().exibir_informacoes()
+        
+        
+    def exibir_informacoesPF(self):
+        super().exibir_informacoesPF()
         print("Número da Conta:", self.numConta)
         print("Tipo de Conta:", self.tipoConta)
         print("Saldo:", self.saldo)
+
     
     def depositar(self, valor):
         if self.tipoConta == "corrente" or self.tipoConta == "especial":
@@ -37,6 +44,11 @@ class ContaFisica(ClienteFisico):
             print("Novo saldo:", self.saldo)
         else:
             print("Ocorreu um erro, tente novamente")
+
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
+
+
 
     def sacar(self, valor):
         if self.tipoConta == "corrente":
@@ -60,6 +72,11 @@ class ContaFisica(ClienteFisico):
                     print("Saldo insuficiente.")
             else:
                 print("Erro: Não é possível realizar saque em conta especial com saldo igual a zero.")
+            
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
+
+
  
     def exibir_extrato(self):
         print("Extrato:")
@@ -76,5 +93,10 @@ class ContaFisica(ClienteFisico):
             print("Valor: ", transacao.valor)
             print("-----------")
         print("Saldo atual: R$", self.saldo)
+
+        print("\nAperte ENTER para voltar ao menu")
+        sys.stdin.readline()
+
+
 
     

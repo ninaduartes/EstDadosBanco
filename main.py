@@ -1,3 +1,4 @@
+import os
 from banco import *
 from PessoaFisica.cadastroCliente import *
 from PessoaFisica.contaFisica import *
@@ -26,6 +27,10 @@ print("\nInformações do Banco:")
 banco_cadastrado.exibir_informacoes()
 clientes = []
 clientesPJ = []
+
+##Limpa a tela antes do próximo processo
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 ##Menu
 def menu_inicial():
@@ -63,6 +68,7 @@ def menu_juridica():
 
 while True:
     print("\n")
+    limpar_tela()
     menu_inicial()
     opcao_inicial = input("Escolha uma opção: ")
 
@@ -70,10 +76,12 @@ while True:
     if opcao_inicial == "1":
         while True:
             print("\n")
+            limpar_tela() ##Limpa a tela antes de exibir menu inicial
             menu_principal()
             opcao = input("Escolha uma opção: ")
 
             if opcao == "1":
+                limpar_tela()
                 cpf_cliente = input("Digite CPF para verificar se o cliente já possui uma conta: ")
                 cliente_existente = False
                 for cliente in clientes:
@@ -88,7 +96,7 @@ while True:
                     cliente_cadastrado.cpf = cpf_cliente
                     clientes.append(cliente_cadastrado)
                     print("\nInformações do Cliente Físico:")
-                    cliente_cadastrado.exibir_informacoes()
+                    cliente_cadastrado.exibir_informacoesPF()
 
             elif opcao == "2":
                 if len(clientes) > 0:
@@ -103,13 +111,14 @@ while True:
                         conta_cadastrada = cadastrar_conta_fisica(cliente_encontrado)
                         cliente_encontrado.conta_fisica = conta_cadastrada
                         print("\nInformações da Conta Física:")
-                        conta_cadastrada.exibir_informacoes()
+                        conta_cadastrada.exibir_informacoesPF()
                     else:
                         print("Erro: CPF do cliente não encontrado.")
                 else:
                     print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
-
+                    
             elif opcao == "3":
+                limpar_tela()
                 if len(clientes) > 0:
                     cpf_cliente = input("\nDigite o CPF do cliente: ")
                     cliente_encontrado = None
@@ -126,6 +135,7 @@ while True:
                     print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
 
             elif opcao == "4":
+                limpar_tela()
                 if len(clientes) > 0:
                     cpf_cliente = input("\nDigite o CPF do cliente: ")
                     cliente_encontrado = None
@@ -142,18 +152,22 @@ while True:
                     print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
 
             elif opcao == "5":
+                limpar_tela()
                 alterar_cadastro_cliente(clientes)
 
             elif opcao == "6":
+                limpar_tela()
                 print("\n[ Consulta de cliente por CPF ]")
                 cpf_consulta = input("\nDigite o CPF do cliente a ser consultado: ")
                 consultar_cliente_por_cpf(clientes, cpf_consulta)
 
             elif opcao == "7":
+                limpar_tela()
                 exibir_extrato(clientes)
 
 
             elif opcao == "8":
+                limpar_tela()
                 break
 
             else:
@@ -200,7 +214,7 @@ while True:
                     else:
                         print("Erro: CNPJ do cliente não encontrado.")
                 else:
-                    print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
+                    print("Erro: É necessário cadastrar um Cliente Jurídico primeiro.")
 
             elif opcao == "3":
                 if len(clientesPJ) > 0:

@@ -1,5 +1,5 @@
 from banco import *
-
+import sys
 
 class ClienteFisico(Banco):
     def __init__(self):
@@ -10,7 +10,7 @@ class ClienteFisico(Banco):
         self.endereco = None
         self.cep = None
 
-    def cadastrar_informacoes(self, agencia, numBanco, gerente, cpf, nome, telefone, endereco, cep):
+    def cadastrar_informacoesPF(self, agencia, numBanco, gerente, cpf, nome, telefone, endereco, cep):
         super().cadastrar_informacoes(agencia, numBanco, gerente)
         self.cpf = cpf
         self.numBanco = numBanco
@@ -19,7 +19,8 @@ class ClienteFisico(Banco):
         self.endereco = endereco
         self.cep = cep
 
-    def exibir_informacoes(self):
+        
+    def exibir_informacoesPF(self):
         super().exibir_informacoes()
         print("CPF:", self.cpf)
         print("Banco:", self.numBanco)
@@ -27,5 +28,6 @@ class ClienteFisico(Banco):
         print("Telefone:", self.telefone)
         print("Endereco:", self.endereco)
         print("CEP:", self.cep)
+
     
     

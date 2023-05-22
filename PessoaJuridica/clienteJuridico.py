@@ -1,4 +1,5 @@
 from banco import *
+import sys
 
 
 class ClienteJuridico(Banco):
@@ -18,6 +19,7 @@ class ClienteJuridico(Banco):
         self.telefone = telefone
         self.endereco = endereco
         self.cep = cep
+
 
     def exibir_informacoesPJ(self):
         super().exibir_informacoes()

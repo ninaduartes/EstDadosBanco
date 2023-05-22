@@ -2,6 +2,7 @@ from banco import *
 from transacoes import *
 from PessoaJuridica.clienteJuridico import *
 from PessoaJuridica.contaJuridica import *
+import sys
 
 ##Formulário de cadastro para ClienteJuridico
 def cadastrar_cliente_juridico(banco):
@@ -14,6 +15,9 @@ def cadastrar_cliente_juridico(banco):
 
     clientePJ = ClienteJuridico()
     clientePJ.cadastrar_informacoesPJ(banco.agencia, banco.numBanco, banco.gerente, cnpj, nome, telefone, endereco, cep)
+
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()
 
     return clientePJ
 
@@ -101,6 +105,10 @@ def alterar_cadastro_cliente_juridico(clientesPJ):
         clientePJ_encontrado.exibir_informacoesPJ()
     else:
         print("Erro: CNPJ do cliente não encontrado.")
+    
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()
+
 
 def consultar_cliente_por_cnpj(clientesPJ, cnpj):
     clientePJ_encontrado = None
@@ -115,3 +123,6 @@ def consultar_cliente_por_cnpj(clientesPJ, cnpj):
         clientePJ_encontrado.exibir_informacoesPJ()
     else:
         print("Cliente não encontrado.")
+        
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()

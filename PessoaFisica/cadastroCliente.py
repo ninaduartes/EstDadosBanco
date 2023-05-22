@@ -4,21 +4,26 @@ from PessoaFisica.contaFisica import *
 from transacoes import *
 
 
-
 ## Cadastro CLIENTES ##
 # Formulário de cadastro para ClienteFisico
 def cadastrar_cliente_fisico(banco):
     print("\n[ Dados do cliente ]")
     cpf = input("\nDigite novamente o CPF: ")
+
     nome = input("Nome completo: ")
     telefone = input("Telefone: ")
     endereco = input("Endereço completo (Rua Exemplo, nº12): ")
     cep = input("CEP: ")
 
     cliente = ClienteFisico()
-    cliente.cadastrar_informacoes(banco.agencia, banco.numBanco, banco.gerente, cpf, nome, telefone, endereco, cep)
+    cliente.cadastrar_informacoesPF(banco.agencia, banco.numBanco, banco.gerente, cpf, nome, telefone, endereco, cep)
 
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()
+
+    
     return cliente
+    
 
 
 ## Cadastro de CONTAS ##
@@ -29,10 +34,9 @@ def cadastrar_conta_fisica(cliente):
     saldo = float(input("Digite o saldo inicial: R$"))
 
     conta_fisica = ContaFisica()
-    conta_fisica.cadastrar_informacoes(cliente, tipo_conta, saldo)
+    conta_fisica.cadastrar_informacoesPF(cliente, tipo_conta, saldo)
 
     return conta_fisica
-
 
 def realizar_deposito(cliente):
     valor_deposito = float(input("Digite o valor do depósito: "))
@@ -103,9 +107,13 @@ def alterar_cadastro_cliente(clientes):
 
         print("[ Cadastro do cliente atualizado com sucesso.]\n")
         print("--> Novas informações do cliente: ")
-        cliente_encontrado.exibir_informacoes()
+        cliente_encontrado()
     else:
         print("Erro: CPF do cliente não encontrado.")
+    
+    print("\n")
+    sys.stdin.readline()
+
 
 def consultar_cliente_por_cpf(clientes, cpf):
     cliente_encontrado = None
@@ -117,6 +125,10 @@ def consultar_cliente_por_cpf(clientes, cpf):
 
     if cliente_encontrado is not None:
         print("Cliente encontrado:")
-        cliente_encontrado.exibir_informacoes()
+        cliente_encontrado.exibir_informacoesPF()
     else:
         print("Cliente não encontrado.")
+    
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()
+
