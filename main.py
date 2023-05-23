@@ -13,7 +13,7 @@ def cadastrar_banco():
     print("----- Gerente, por favor se identifique: -----\n")
 
     agencia = input("Digite o número da agência: ")
-    numBanco = input("Digite o número do banco: ")
+    numBanco = input("Digite o número e o nome do banco (112- Banco Exemplo): ")
     gerente = input("Digite o seu nome completo: ")
 
     banco = Banco()
@@ -27,6 +27,37 @@ print("\nInformações do Banco:")
 banco_cadastrado.exibir_informacoes()
 clientes = []
 clientesPJ = []
+clientes_ordenados = []
+clientesPJ_ordenados = []
+
+##Cadastra os clientes físicos ordenados
+def exibir_clientes_ordenados():
+    if len(clientes_ordenados) > 0:
+        print("\n--- Clientes Físicos Cadastrados (Ordem Alfabética) ---")
+        clientes_ordenados.sort(key=lambda cliente: cliente.nome)  # Ordena os clientes pelo nome
+        for cliente in clientes_ordenados:
+            print("\n-----------")
+            print(f"Nome: {cliente.nome}\nCPF: {cliente.cpf}\nNúmero da conta: {cliente.conta_fisica.numero}")
+            print("-----------")
+
+    else:
+        print("Não há clientes físicos cadastrados.")
+
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()
+
+## Cadastra os clientes jurídicos ordenados 
+def exibir_clientes_ordenadosPJ():
+    if len(clientesPJ_ordenados) > 0:
+        print("\n--- Clientes Físicos Cadastrados (Ordem Alfabética) ---")
+        clientesPJ_ordenados.sort(key=lambda clientePJ: clientePJ.nome)  # Ordena os clientes pelo nome
+        for clientePJ in clientesPJ_ordenados:
+            print(f"Nome: {clientePJ.nome} | CNPJ: {clientePJ.cnpj}")
+    else:
+        print("Não há clientes físicos cadastrados.")
+
+    print("\nAperte ENTER para voltar ao menu")
+    sys.stdin.readline()
 
 ##Limpa a tela antes do próximo processo
 def limpar_tela():
@@ -51,7 +82,8 @@ def menu_principal():
     print("5. Alterar Cadastro do Cliente")
     print("6. Consultar cliente por CPF")
     print("7. Exibir Extrato")
-    print("8. Retornar ao menu principal")
+    print("8. Exibir todos os clientes cadastrados")
+    print("9. Retornar ao menu principal")
 
 #Menu Juridica
 def menu_juridica():
@@ -64,7 +96,8 @@ def menu_juridica():
     print("5. Alterar Cadastro do Cliente")
     print("6. Consultar cliente por CNPJ")
     print("7. Exibir Extrato")
-    print("8. Retornar ao menu principal")
+    print("8. Exibir todos os clientes cadastrados")
+    print("9. Retornar ao menu principal")
 
 while True:
     print("\n")
@@ -95,6 +128,7 @@ while True:
                     cliente_cadastrado = cadastrar_cliente_fisico(banco_cadastrado)
                     cliente_cadastrado.cpf = cpf_cliente
                     clientes.append(cliente_cadastrado)
+                    clientes_ordenados.append(cliente_cadastrado)
                     print("\nInformações do Cliente Físico:")
                     cliente_cadastrado.exibir_informacoesPF()
 
@@ -128,6 +162,7 @@ while True:
                             break
 
                     if cliente_encontrado is not None:
+                        print(f"\n[ Depósito para cliente {cliente.nome} ] \n [ CPF: {cliente.cpf} ]\n")
                         realizar_deposito(cliente_encontrado)
                     else:
                         print("Erro: CPF do cliente não encontrado.")
@@ -145,6 +180,7 @@ while True:
                             break
 
                     if cliente_encontrado is not None:
+                        print(f"\n[ Saque para cliente {cliente.nome} ] \n [ CPF: {cliente.cpf} ]\n")
                         realizar_saque(cliente_encontrado)
                     else:
                         print("Erro: CPF do cliente não encontrado.")
@@ -165,8 +201,11 @@ while True:
                 limpar_tela()
                 exibir_extrato(clientes)
 
-
             elif opcao == "8":
+                limpar_tela()
+                exibir_clientes_ordenados()
+            
+            elif opcao == "9":
                 limpar_tela()
                 break
 
@@ -177,10 +216,12 @@ while True:
     elif opcao_inicial == "2":
         while True:
             print("\n")
+            limpar_tela()
             menu_juridica()
             opcao = input("Escolha uma opção: ")
 
             if opcao == "1":
+                limpar_tela()
                 cnpj_clientePJ = input("Digite CNPJ para verificar se a empresa já possui uma conta: ")
                 clientePJ_existente = False
                 for clientePJ in clientesPJ:
@@ -194,10 +235,12 @@ while True:
                     clientePJ_cadastrado = cadastrar_cliente_juridico(banco_cadastrado)
                     clientePJ_cadastrado.cnpj = cnpj_clientePJ
                     clientesPJ.append(clientePJ_cadastrado)
+                    clientesPJ_ordenados.append(clientePJ_cadastrado)
                     print("\nInformações do Cliente Jurídico:")
                     clientePJ_cadastrado.exibir_informacoesPJ()
 
             elif opcao == "2":
+                limpar_tela()
                 if len(clientesPJ) > 0:
                     cnpj_clientePJ = input("\nDigite o CNPJ do cliente: ")
                     clientePJ_encontrado = None
@@ -217,6 +260,7 @@ while True:
                     print("Erro: É necessário cadastrar um Cliente Jurídico primeiro.")
 
             elif opcao == "3":
+                limpar_tela()
                 if len(clientesPJ) > 0:
                     cnpj_clientePJ = input("\nDigite o CNPJ do cliente: ")
                     clientePJ_encontrado = None
@@ -226,6 +270,7 @@ while True:
                             break
 
                     if clientePJ_encontrado is not None:
+                        print(f"\n[ Depósito para cliente {clientePJ.nome} ] \n [ CNPJ: {clientePJ.cnpj} ]\n")
                         realizar_deposito_juridica(clientePJ_encontrado)
                     else:
                         print("Erro: CNPJ do cliente não encontrado.")
@@ -233,6 +278,7 @@ while True:
                     print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
 
             elif opcao == "4":
+                limpar_tela()
                 if len(clientesPJ) > 0:
                     cnpj_clientePJ = input("\nDigite o CNPJ do cliente: ")
                     clientePJ_encontrado = None
@@ -242,6 +288,7 @@ while True:
                             break
 
                     if clientePJ_encontrado is not None:
+                        print(f"\n[ Saque para cliente {clientePJ.nome} ] \n [ CNPJ:{clientePJ.cnpj} ]\n")
                         realizar_saque_juridica(clientePJ_encontrado)
                     else:
                         print("Erro: CNPJ do cliente não encontrado.")
@@ -249,18 +296,26 @@ while True:
                     print("Erro: É necessário cadastrar um Cliente Jurídico primeiro.")
 
             elif opcao == "5":
+                limpar_tela()
                 alterar_cadastro_cliente_juridico(clientesPJ)
 
             elif opcao == "6":
+                limpar_tela()
                 print("\n[ Consulta de cliente por CNPJ ]")
                 cnpj_consulta = input("\nDigite o CNPJ do cliente a ser consultado: ")
                 consultar_cliente_por_cnpj(clientesPJ, cnpj_consulta)
 
             elif opcao == "7":
+                limpar_tela()
                 exibir_extrato_juridica(clientesPJ)
 
 
             elif opcao == "8":
+                limpar_tela()
+                exibir_clientes_ordenados()
+            
+            elif opcao == "9":
+                limpar_tela()
                 break
 
             else:

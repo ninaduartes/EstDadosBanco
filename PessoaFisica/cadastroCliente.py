@@ -39,11 +39,11 @@ def cadastrar_conta_fisica(cliente):
     return conta_fisica
 
 def realizar_deposito(cliente):
-    valor_deposito = float(input("Digite o valor do depósito: "))
+    valor_deposito = float(input("Digite o valor do depósito: R$"))
     cliente.conta_fisica.depositar(valor_deposito)
 
 def realizar_saque(cliente):
-    valor_saque = float(input("Digite o valor do saque: "))
+    valor_saque = float(input("Digite o valor do saque: R$"))
     cliente.conta_fisica.sacar(valor_saque)
 
 
@@ -64,7 +64,7 @@ def exibir_extrato(clientes):
         print("Erro: É necessário cadastrar um Cliente Físico primeiro.")
 
 def alterar_cadastro_cliente(clientes):
-    cpf_cliente = input("\nDigite o CPF do cliente a ser alterado: ")
+    cpf_cliente = input("\nDigite o CPF do cliente que deseja realizar alterações de cadastro: ")
     cliente_encontrado = None
 
     for cliente in clientes:
@@ -124,8 +124,26 @@ def consultar_cliente_por_cpf(clientes, cpf):
             break
 
     if cliente_encontrado is not None:
-        print("Cliente encontrado:")
-        cliente_encontrado.exibir_informacoesPF()
+        print("-----> Cliente encontrado <-----")
+
+        print("\n-----------")
+        print(f"Nome: {cliente.nome}")
+        print(f"CPF: {cliente.cpf}")
+        print("-----------")
+
+        print("\n-----------")
+        print(f"Número da conta: {cliente.conta_fisica.numConta}")
+        print(f"Banco: {cliente.conta_fisica.numBanco}")
+        print(f"Agencia: {cliente.conta_fisica.agencia}")
+        print(f"Gerente: {cliente.conta_fisica.gerente}")
+        print("-----------")
+
+        print("\n-----------")
+        print(f"Telefone: {cliente.telefone}")
+        print(f"Endereco: {cliente.endereco}")
+        print(f"CEP: {cliente.cep}")
+        print("-----------")
+
     else:
         print("Cliente não encontrado.")
     

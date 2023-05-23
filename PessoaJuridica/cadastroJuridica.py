@@ -59,7 +59,7 @@ def exibir_extrato_juridica(clientesPJ):
         print("Erro: É necessário cadastrar um Cliente Jurídico primeiro.")
 
 def alterar_cadastro_cliente_juridico(clientesPJ):
-    cnpj_clientePJ = input("\nDigite o cnpj do cliente a ser alterado: ")
+    cnpj_clientePJ = input("\nDigite o cnpj do cliente que deseja realizar alterações de cadastro:: ")
     clientePJ_encontrado = None
 
     for clientePJ in clientesPJ:
@@ -119,8 +119,25 @@ def consultar_cliente_por_cnpj(clientesPJ, cnpj):
             break
 
     if clientePJ_encontrado is not None:
-        print("Cliente encontrado:")
-        clientePJ_encontrado.exibir_informacoesPJ()
+        print("-----> Cliente encontrado <-----")
+
+        print("\n-----------")
+        print(f"Nome: {clientePJ.nome}")
+        print(f"CPF: {clientePJ.cpf}")
+        print("-----------")
+
+        print("\n-----------")
+        print(f"Número da conta: {clientePJ.conta_juridica.numConta}")
+        print(f"Banco: {clientePJ.conta_juridica.numBanco}")
+        print(f"Agencia: {clientePJ.conta_juridica.agencia}")
+        print(f"Gerente: {clientePJ.conta_juridica.gerente}")
+        print("-----------")
+
+        print("\n-----------")
+        print(f"Telefone: {clientePJ.telefone}")
+        print(f"Endereco: {clientePJ.endereco}")
+        print(f"CEP: {clientePJ.cep}")
+        print("-----------")
     else:
         print("Cliente não encontrado.")
         

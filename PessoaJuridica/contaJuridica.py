@@ -38,7 +38,7 @@ class ContaJuridica(ClienteJuridico):
             transacao = Transacao("Depósito", valor)
             self.extrato.append(transacao)
             print("Depósito realizado com sucesso.")
-            print("Novo saldo:", self.saldo)
+            print("Novo saldo: R$", self.saldo)
         else:
             print("Ocorreu um erro, tente novamente")
 
@@ -53,7 +53,7 @@ class ContaJuridica(ClienteJuridico):
                 transacao = Transacao("Saque", valor)
                 self.extrato.append(transacao)
                 print("Saque realizado com sucesso.")
-                print("Novo saldo:", self.saldo)
+                print("Novo saldo: R$", self.saldo)
             else:
                 print("Erro: Não é possível sacar o valor total da conta corrente.")
         elif self.tipoConta == "especial":
@@ -63,7 +63,7 @@ class ContaJuridica(ClienteJuridico):
                     transacao = Transacao("Saque", valor)
                     self.extrato.append(transacao)
                     print("Saque realizado com sucesso.")
-                    print("Novo saldo:", self.saldo)
+                    print("Novo saldo: R$", self.saldo)
                 else:
                     print("Saldo insuficiente.")
             else:

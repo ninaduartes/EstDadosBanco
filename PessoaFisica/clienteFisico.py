@@ -1,6 +1,4 @@
 from banco import *
-import sys
-
 class ClienteFisico(Banco):
     def __init__(self):
         super().__init__()
