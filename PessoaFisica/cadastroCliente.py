@@ -84,6 +84,7 @@ def alterar_cadastro_cliente(clientes):
 
         if novo_nome:
             cliente_encontrado.nome = novo_nome
+
         if novo_telefone:
             cliente_encontrado.telefone = novo_telefone
         
@@ -107,11 +108,12 @@ def alterar_cadastro_cliente(clientes):
 
         print("[ Cadastro do cliente atualizado com sucesso.]\n")
         print("--> Novas informações do cliente: ")
-        cliente_encontrado()
+        cliente_encontrado.exibir_informacoes()
     else:
         print("Erro: CPF do cliente não encontrado.")
     
     print("\n")
+    print("\nAperte ENTER para voltar ao menu")
     sys.stdin.readline()
 
 

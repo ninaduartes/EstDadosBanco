@@ -79,6 +79,7 @@ def alterar_cadastro_cliente_juridico(clientesPJ):
 
         if novo_nome:
             clientePJ_encontrado.nome = novo_nome
+            
         if novo_telefone:
             clientePJ_encontrado.telefone = novo_telefone
         

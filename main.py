@@ -37,7 +37,7 @@ def exibir_clientes_ordenados():
         clientes_ordenados.sort(key=lambda cliente: cliente.nome)  # Ordena os clientes pelo nome
         for cliente in clientes_ordenados:
             print("\n-----------")
-            print(f"Nome: {cliente.nome}\nCPF: {cliente.cpf}\nNúmero da conta: {cliente.conta_fisica.numero}")
+            print(f"Nome: {cliente.nome}\nCPF: {cliente.cpf}")
             print("-----------")
 
     else:
