@@ -5,3 +5,5 @@ Gabriela Hiray - RA: 00108585
 <br>Análise e desenvolvimento de sistemas - 4º Semestre - UNISO
 <br>Profº José Roberto Garcia
 29/05/2023
+
+<br> O arquvio EXE está na pasta build
