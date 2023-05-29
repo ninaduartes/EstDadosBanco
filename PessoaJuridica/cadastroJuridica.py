@@ -124,7 +124,7 @@ def consultar_cliente_por_cnpj(clientesPJ, cnpj):
 
         print("\n-----------")
         print(f"Nome: {clientePJ.nome}")
-        print(f"CPF: {clientePJ.cpf}")
+        print(f"CNPJ: {clientePJ.cnpj}")
         print("-----------")
 
         print("\n-----------")

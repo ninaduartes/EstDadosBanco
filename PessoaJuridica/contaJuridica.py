@@ -10,7 +10,7 @@ class ContaJuridica(ClienteJuridico):
         self.numConta = None
         self.tipoConta = None
         self.saldo = None
-        self.extrato = []
+        self.extratoPJ = []
 
     def cadastrar_informacoesPJ(self, clientePJ, tipo_conta, saldo):
         if isinstance(clientePJ, ClienteJuridico):
@@ -36,7 +36,7 @@ class ContaJuridica(ClienteJuridico):
         if self.tipoConta == "corrente" or self.tipoConta == "especial":
             self.saldo += valor
             transacao = Transacao("Depósito", valor)
-            self.extrato.append(transacao)
+            self.extratoPJ.append(transacao)
             print("Depósito realizado com sucesso.")
             print("Novo saldo: R$", self.saldo)
         else:
@@ -51,17 +51,18 @@ class ContaJuridica(ClienteJuridico):
             if valor < self.saldo:
                 self.saldo -= valor
                 transacao = Transacao("Saque", valor)
-                self.extrato.append(transacao)
+                self.extratoPJ.append(transacao)
                 print("Saque realizado com sucesso.")
                 print("Novo saldo: R$", self.saldo)
             else:
                 print("Erro: Não é possível sacar o valor total da conta corrente.")
+                
         elif self.tipoConta == "especial":
             if self.saldo > 0:
                 if valor <= self.saldo:
                     self.saldo -= valor
                     transacao = Transacao("Saque", valor)
-                    self.extrato.append(transacao)
+                    self.extratoPJ.append(transacao)
                     print("Saque realizado com sucesso.")
                     print("Novo saldo: R$", self.saldo)
                 else:
@@ -78,7 +79,7 @@ class ContaJuridica(ClienteJuridico):
         print("\n-----------")
         print("Número da conta: ", self.numConta)
         print("Nome do cliente: ", self.nome)
-        for transacao in self.extrato:
+        for transacao in self.extratoPJ:
             data_formatada = transacao.data_hora.strftime("%d/%m/%Y")  # Formata a data no formato dia/mês/ano
             hora_formatada = transacao.data_hora.strftime("%H:%M")  # Formata a hora no formato hora:minuto
             print("-----------")
